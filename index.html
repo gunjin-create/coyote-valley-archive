@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#26352e">
+<title>Coyote Valley — City Archive</title>
+<style>
+:root {
+  --green:#26352e;
+  --green2:#35483d;
+  --paper:#eee9dc;
+  --paper2:#e3dccb;
+  --ink:#292b25;
+  --muted:#77776b;
+  --gold:#a68b58;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:Georgia,serif;
+}
+header {
+  background:var(--green);
+  color:var(--paper);
+  padding:25px 20px 22px;
+  border-bottom:5px solid var(--gold);
+}
+.topline {
+  font:10px Arial,sans-serif;
+  letter-spacing:3px;
+  color:#c6b991;
+}
+.logo {
+  font-size:29px;
+  letter-spacing:2px;
+  margin:13px 0 5px;
+}
+.subtitle {
+  font:11px Arial,sans-serif;
+  letter-spacing:2px;
+  color:#c9c2ae;
+}
+nav {
+  display:flex;
+  overflow-x:auto;
+  background:var(--green2);
+  padding:0 10px;
+}
+nav button {
+  border:0;
+  background:none;
+  color:#e8e1d1;
+  padding:15px 13px;
+  white-space:nowrap;
+  font:11px Arial,sans-serif;
+  letter-spacing:1px;
+}
+nav button.active {
+  border-bottom:3px solid var(--gold);
+  color:white;
+}
+main {
+  max-width:850px;
+  margin:auto;
+  padding:25px 17px 50px;
+}
+.eyebrow {
+  font:10px Arial,sans-serif;
+  letter-spacing:2px;
+  color:var(--gold);
+}
+h1 { font-size:28px; margin:9px 0; }
+.intro {
+  color:var(--muted);
+  line-height:1.6;
+  font-size:14px;
+}
+.rule {
+  border:0;
+  border-top:1px solid #c9c0ad;
+  margin:22px 0;
+}
+.stats {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+  margin:22px 0;
+}
+.stat {
+  background:var(--paper2);
+  padding:14px 9px;
+  text-align:center;
+}
+.stat strong {
+  display:block;
+  font-size:23px;
+  color:var(--green);
+}
+.stat span {
+  font:9px Arial,sans-serif;
+  color:var(--muted);
+  letter-spacing:1px;
+}
+.section-title {
+  font-size:21px;
+  margin:0 0 14px;
+}
+.search {
+  width:100%;
+  padding:13px;
+  border:1px solid #c5bba7;
+  background:#f6f2e9;
+  font-size:14px;
+  margin-bottom:15px;
+  border-radius:2px;
+}
+.resident {
+  display:flex;
+  gap:14px;
+  padding:14px;
+  background:#f5f1e7;
+  border:1px solid #d5cdbb;
+  margin-bottom:10px;
+  cursor:pointer;
+}
+.resident:active { background:var(--paper2); }
+.portrait {
+  width:76px;
+  height:92px;
+  flex-shrink:0;
+  background:#d3c9b5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  color:var(--green);
+}
+.resident-info { flex:1; min-width:0; }
+.record {
+  font:9px Arial,sans-serif;
+  letter-spacing:1px;
+  color:var(--gold);
+}
+.resident h3 { margin:7px 0; font-size:18px; }
+.resident p {
+  font-size:12px;
+  color:var(--muted);
+  margin:4px 0;
+}
+.status {
+  font:9px Arial,sans-serif;
+  color:#4e704f;
+  margin-top:8px;
+}
+.panel {
+  background:#e6dfcf;
+  padding:20px;
+  margin-top:22px;
+  border-left:3px solid var(--gold);
+}
+.panel h3 { margin-top:0; }
+.panel p {
+  font-size:13px;
+  line-height:1.6;
+  color:#656457;
+}
+.page { display:none; }
+.page.active { display:block; }
+.back {
+  background:var(--green);
+  color:white;
+  border:0;
+  padding:11px 17px;
+  margin-bottom:20px;
+  font:11px Arial,sans-serif;
+}
+.details {
+  border-collapse:collapse;
+  width:100%;
+  font-size:13px;
+  margin:15px 0;
+}
+.details td {
+  border-bottom:1px solid #cec5b3;
+  padding:11px 5px;
+}
+.details td:first-child { color:var(--muted); }
+footer {
+  background:var(--green);
+  color:#c8c0ae;
+  text-align:center;
+  padding:25px 15px;
+  font:10px Arial,sans-serif;
+  letter-spacing:2px;
+}
+.empty {
+  text-align:center;
+  color:var(--muted);
+  padding:25px;
+}
+@media(min-width:650px) {
+  .logo { font-size:38px; }
+  main { padding-top:35px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="topline">MUNICIPAL RECORDS DEPARTMENT</div>
+  <div class="logo">COYOTE VALLEY</div>
+  <div class="subtitle">CITY ARCHIVE · EST. 19XX</div>
+</header>
+
+<nav>
+  <button class="active" onclick="showPage('home',this)">ГЛАВНАЯ</button>
+  <button onclick="showPage('residents',this)">ЖИТЕЛИ</button>
+  <button onclick="showPage('history',this)">ИСТОРИЯ</button>
+  <button onclick="showPage('organizations',this)">ОРГАНИЗАЦИИ</button>
+  <button onclick="showPage('contacts',this)">СВЕДЕНИЯ</button>
+</nav>
+
+<main>
+
+<section id="home" class="page active">
+  <div class="eyebrow">OFFICIAL CITY DATABASE</div>
+  <h1>Городской архив</h1>
+  <p class="intro">
+    Добро пожаловать в электронный архив Койот-Вэлли.
+    Здесь собраны сведения о жителях, организациях
+    и истории нашего города.
+  </p>
+
+  <div class="stats">
+    <div class="stat"><strong id="residentCount">2</strong><span>ЖИТЕЛЕЙ</span></div>
+    <div class="stat"><strong>00</strong><span>ОРГАНИЗАЦИЙ</span></div>
+    <div class="stat"><strong>001</strong><span>АРХИВ</span></div>
+  </div>
+
+  <hr class="rule">
+
+  <h2 class="section-title">Реестр жителей</h2>
+  <p class="intro">Персональные дела зарегистрированных жителей.</p>
+  <button class="back" onclick="showPage('residents')">ОТКРЫТЬ РЕЕСТР →</button>
+
+  <div class="panel">
+    <h3>Муниципальное уведомление</h3>
+    <p>
+      Электронный архив находится в стадии формирования.
+      Информация будет пополняться по мере регистрации новых жителей.
+    </p>
+  </div>
+</section>
+
+<section id="residents" class="page">
+  <div class="eyebrow">DATABASE / PERSONNEL</div>
+  <h1>Реестр жителей</h1>
+  <p class="intro">Зарегистрированные жители Койот-Вэлли.</p>
+  <hr class="rule">
+  <input class="search" id="search" placeholder="Поиск по имени..." oninput="filterResidents()">
+  <div id="residentList"></div>
+</section>
+
+<section id="profile" class="page">
+  <button class="back" onclick="showPage('residents')">← НАЗАД К РЕЕСТРУ</button>
+  <div class="eyebrow" id="profileNumber"></div>
+  <h1 id="profileName"></h1>
+  <p class="intro" id="profileDescription"></p>
+  <hr class="rule">
+  <h2 class="section-title">Персональные сведения</h2>
+  <table class="details" id="profileDetails"></table>
+  <div class="panel">
+    <h3>Биография</h3>
+    <p id="profileBio"></p>
+  </div>
+</section>
+
+<section id="history" class="page">
+  <div class="eyebrow">HISTORICAL RECORDS</div>
+  <h1>История города</h1>
+  <p class="intro">Исторические документы и хроника Койот-Вэлли.</p>
+  <div class="panel">
+    <h3>Архив пополняется</h3>
+    <p>История города будет опубликована здесь.</p>
+  </div>
+</section>
+
+<section id="organizations" class="page">
+  <div class="eyebrow">CITY DIRECTORY</div>
+  <h1>Организации</h1>
+  <p class="intro">Предприятия, учреждения и общественные объединения.</p>
+  <div class="panel"><h3>Раздел формируется</h3></div>
+</section>
+
+<section id="contacts" class="page">
+  <div class="eyebrow">INFORMATION</div>
+  <h1>Сведения об архиве</h1>
+  <p class="intro">
+    Электронная энциклопедия Койот-Вэлли —
+    информационный проект сообщества.
+  </p>
+  <div class="panel">
+    <h3>Администрация архива</h3>
+    <p>Ведение и обновление записей осуществляется администрацией проекта.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  COYOTE VALLEY · MUNICIPAL ARCHIVE<br><br>
+  DIGITAL RECORDS SYSTEM
+</footer>
+
+<script>
+const residents = [
+ {
+  id:"CV-0001",
+  name:"Александр Морган",
+  job:"Не указано",
+  age:"Не указано",
+  address:"Не указано",
+  status:"Активный",
+  description:"Личное дело № CV-0001",
+  bio:"Биография пока не добавлена."
+ },
+ {
+  id:"CV-0002",
+  name:"Эмили Картер",
+  job:"Не указано",
+  age:"Не указано",
+  address:"Не указано",
+  status:"Активный",
+  description:"Личное дело № CV-0002",
+  bio:"Биография пока не добавлена."
+ }
+];
+
+function showPage(id,button) {
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+ if(button) button.classList.add("active");
+ window.scrollTo(0,0);
+}
+
+function renderResidents(items) {
+ const list=document.getElementById("residentList");
+ list.innerHTML="";
+ if(!items.length) {
+  list.innerHTML='<div class="empty">Записи не найдены.</div>';
+  return;
+ }
+ items.forEach(r=>{
+  const el=document.createElement("div");
+  el.className="resident";
+  el.innerHTML=`
+   <div class="portrait">✦</div>
+   <div class="resident-info">
+    <div class="record">${r.id}</div>
+    <h3></h3>
+    <p></p>
+    <div class="status">● ${r.status}</div>
+   </div>`;
+  el.querySelector("h3").textContent=r.name;
+  el.querySelector("p").textContent=r.job;
+  el.onclick=()=>openProfile(r.id);
+  list.appendChild(el);
+ });
+}
+
+function filterResidents() {
+ const q=document.getElementById("search").value.toLowerCase();
+ renderResidents(residents.filter(r=>
+  r.name.toLowerCase().includes(q) ||
+  r.id.toLowerCase().includes(q)
+ ));
+}
+
+function openProfile(id) {
+ const r=residents.find(x=>x.id===id);
+ if(!r) return;
+ document.getElementById("profileNumber").textContent=r.id;
+ document.getElementById("profileName").textContent=r.name;
+ document.getElementById("profileDescription").textContent=r.description;
+ document.getElementById("profileBio").textContent=r.bio;
+ document.getElementById("profileDetails").innerHTML=`
+ <tr><td>Возраст</td><td>${r.age}</td></tr>
+ <tr><td>Род занятий</td><td>${r.job}</td></tr>
+ <tr><td>Адрес</td><td>${r.address}</td></tr>
+ <tr><td>Статус</td><td>${r.status}</td></tr>`;
+ showPage("profile");
+}
+
+renderResidents(residents);
+</script>
+
+</body>
+</html>
