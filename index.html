@@ -487,34 +487,87 @@ function filterResidents(){
  renderResidents(result);
 }
 
-function openProfile(id){
- const r=residents.find(x=>x.id===id);
- if(!r)return;
- document.getElementById("profileNumber").textContent="PERSONNEL FILE / "+r.id;
- document.getElementById("profileName").textContent=r.name;
- document.getElementById("profileDescription").textContent=r.description;
- document.getElementById("profileBio").textContent=r.bio;
- const photo=document.getElementById("profilePhoto");
- photo.innerHTML="";
- photo.appendChild(makePhoto(r,true));
- const rows=[
-  ["Регистрационный номер",r.id],
-  ["Возраст",r.age],
-  ["Род занятий",r.job],
-  ["Место проживания",r.address],
-  ["Статус",r.status]
+
+function openProfile(id) {
+ const r = residents.find(x => x.id === id);
+ if (!r) return;
+
+ document.getElementById("profileNumber").textContent =
+  "RECORD NUMBER / " + r.id;
+
+ document.getElementById("profileName").textContent = r.name;
+
+ document.getElementById("profileDescription").textContent =
+  r.fullName + " · " + r.job;
+
+ document.getElementById("profileStatus").textContent =
+  "● " + r.status;
+
+ document.getElementById("profileBio").textContent = r.bio;
+
+ const photo = document.getElementById("profilePhoto");
+ photo.innerHTML = "";
+ photo.appendChild(makePhoto(r, true));
+
+ const personal = [
+  ["Полное имя", r.fullName],
+  ["Возраст", r.age],
+  ["Дата рождения", r.birthDate],
+  ["Пол", r.gender],
+  ["Место рождения", r.birthplace],
+  ["Профессия", r.job],
+  ["Семейное положение", r.family],
+  ["Улица", r.street],
+  ["Дом", r.house],
+  ["Почтовый индекс", r.postalCode],
+  ["Тип жилища", r.housing]
  ];
- const table=document.getElementById("profileDetails");
- table.innerHTML="";
- rows.forEach(row=>{
-  const tr=document.createElement("tr");
-  const a=document.createElement("td");
-  const b=document.createElement("td");
-  a.textContent=row[0];
-  b.textContent=row[1];
-  tr.append(a,b);
-  table.appendChild(tr);
- });
+
+ const appearance = [
+  ["Рост", r.height],
+  ["Телосложение", r.build],
+  ["Цвет волос", r.hair],
+  ["Цвет глаз", r.eyes],
+  ["Отличительные особенности", r.features],
+  ["Прототип внешности", r.faceClaim]
+ ];
+
+ function fillTable(elementId, rows) {
+  const table = document.getElementById(elementId);
+  table.innerHTML = "";
+
+  rows.forEach(([label, value]) => {
+   const tr = document.createElement("tr");
+   const td1 = document.createElement("td");
+   const td2 = document.createElement("td");
+
+   td1.textContent = label;
+   td2.textContent = value || "Не указано";
+
+   tr.append(td1, td2);
+   table.appendChild(tr);
+  });
+ }
+
+ fillTable("profileDetails", personal);
+ fillTable("appearanceDetails", appearance);
+
+ document.getElementById("personality").textContent = r.personality;
+ document.getElementById("interests").textContent = r.interests;
+ document.getElementById("strengths").textContent = r.strengths;
+ document.getElementById("weaknesses").textContent = r.weaknesses;
+ document.getElementById("habits").textContent = r.habits;
+
+ document.getElementById("connections").textContent = r.connections;
+ document.getElementById("plans").textContent = r.plans;
+
+ document.getElementById("applicantNickname").textContent =
+  r.applicantNickname;
+
+ const telegram = document.getElementById("applicantTelegram");
+ telegram.href = r.applicantTelegram;
+ telegram.textContent = "@" + r.applicantTelegram.split("/").filter(Boolean).pop();
+
  showPage("profile");
 }
 
