@@ -1,374 +1,794 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#26352e">
 <title>Coyote Valley — City Archive</title>
+
 <style>
 :root {
- --green:#26352e;
- --green2:#35483d;
- --paper:#eee9dc;
- --paper2:#e3dccb;
- --ink:#292b25;
- --muted:#77776b;
- --gold:#a68b58;
-}
-*{box-sizing:border-box}
-body{
- margin:0;background:var(--paper);color:var(--ink);
- font-family:Georgia,serif;
-}
-header{
- background:var(--green);color:var(--paper);
- padding:25px 20px 22px;
- border-bottom:5px solid var(--gold);
-}
-.topline,.eyebrow,.record,.subtitle{
- font-family:Arial,sans-serif;letter-spacing:2px;
-}
-.topline{font-size:10px;color:#c6b991}
-.logo{font-size:29px;letter-spacing:2px;margin:13px 0 5px}
-.subtitle{font-size:10px;color:#c9c2ae}
-nav{
- display:flex;overflow-x:auto;background:var(--green2);
- padding:0 8px;position:sticky;top:0;z-index:5;
-}
-nav button{
- border:0;background:none;color:#e8e1d1;
- padding:15px 12px;white-space:nowrap;
- font:11px Arial,sans-serif;letter-spacing:1px;
-}
-nav button.active{border-bottom:3px solid var(--gold)}
-main{max-width:850px;margin:auto;padding:25px 16px 45px}
-.page{display:none}
-.page.active{display:block}
-.eyebrow{font-size:10px;color:var(--gold)}
-h1{font-size:29px;margin:10px 0}
-h2{font-size:22px}
-.intro{color:var(--muted);line-height:1.65;font-size:14px}
-.rule{border:0;border-top:1px solid #c9c0ad;margin:22px 0}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:22px 0}
-.stat{background:var(--paper2);padding:13px 5px;text-align:center}
-.stat strong{display:block;font-size:22px;color:var(--green)}
-.stat span{font:9px Arial,sans-serif;color:var(--muted)}
-.panel{
- background:#e6dfcf;padding:19px;margin-top:22px;
- border-left:3px solid var(--gold)
-}
-.panel p{font-size:13px;line-height:1.6;color:#656457}
-.search{
- width:100%;padding:13px;border:1px solid #c5bba7;
- background:#f6f2e9;font-size:14px;margin:12px 0;
-}
-.filters{display:flex;gap:9px;margin-bottom:15px}
-.filters select{
- min-width:0;flex:1;padding:11px 7px;
- background:#f6f2e9;border:1px solid #c5bba7;
- color:var(--ink);font-size:12px;
-}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.card{
- background:#f5f1e7;border:1px solid #d5cdbb;
- cursor:pointer;overflow:hidden;
-}
-.card:active{background:var(--paper2)}
-.photo{
- width:100%;height:155px;object-fit:cover;
- background:#d4cbb9;display:flex;
- align-items:center;justify-content:center;
- color:var(--green);font-size:40px;
-}
-.photo {
- height:auto;
- min-height:150px;
- background:#d4cbb9;
+  --green:#26352e;
+  --green2:#35483d;
+  --paper:#eee9dc;
+  --paper2:#e3dccb;
+  --ink:#292b25;
+  --muted:#77776b;
+  --gold:#a68b58;
+  --line:#c9c0ad;
 }
 
-.photo img {
- width:100%;
- height:auto;
- object-fit:contain;
- display:block;
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:Georgia,serif;
 }
-.card-info{padding:12px}
-.record{font-size:9px;color:var(--gold)}
-.card h3{font-size:16px;margin:8px 0}
-.card p{font:11px Arial,sans-serif;color:var(--muted);margin:5px 0}
-.status{font:9px Arial,sans-serif;color:#4e704f;margin-top:10px}
-.button{
- display:inline-block;background:var(--green);
- color:white;border:0;padding:12px 17px;
- font:11px Arial,sans-serif;letter-spacing:.5px;
- cursor:pointer;
+
+button, input, select {
+  font:inherit;
 }
-.back{margin-bottom:20px}
-.profile-photo{
- width:100%;height:240px;background:#d4cbb9;
- display:flex;align-items:center;justify-content:center;
- font-size:65px;color:var(--green);overflow:hidden;
+
+header {
+  background:var(--green);
+  color:var(--paper);
+  padding:26px 20px 23px;
+  border-bottom:5px solid var(--gold);
 }
+
+.topline {
+  font:10px Arial,sans-serif;
+  letter-spacing:3px;
+  color:#c6b991;
+}
+
+.logo {
+  font-size:32px;
+  letter-spacing:2px;
+  margin:13px 0 5px;
+}
+
+.subtitle {
+  font:10px Arial,sans-serif;
+  letter-spacing:2px;
+  color:#c9c2ae;
+}
+
+nav {
+  display:flex;
+  overflow-x:auto;
+  background:var(--green2);
+  padding:0 8px;
+  position:sticky;
+  top:0;
+  z-index:10;
+  scrollbar-width:none;
+}
+
+nav::-webkit-scrollbar { display:none; }
+
+nav button {
+  border:0;
+  background:none;
+  color:#e8e1d1;
+  padding:16px 13px;
+  white-space:nowrap;
+  font:11px Arial,sans-serif;
+  letter-spacing:1px;
+  cursor:pointer;
+}
+
+nav button.active {
+  border-bottom:3px solid var(--gold);
+  color:white;
+}
+
+main {
+  max-width:1000px;
+  margin:auto;
+  padding:27px 18px 50px;
+}
+
+.page { display:none; }
+.page.active { display:block; }
+
+.eyebrow {
+  font:10px Arial,sans-serif;
+  letter-spacing:2px;
+  color:var(--gold);
+}
+
+h1 {
+  font-size:30px;
+  line-height:1.2;
+  margin:10px 0;
+}
+
+h2 {
+  font-size:22px;
+  margin-top:27px;
+  margin-bottom:14px;
+}
+
+h3 {
+  font-size:16px;
+}
+
+.intro {
+  color:var(--muted);
+  line-height:1.7;
+  font-size:15px;
+}
+
+.rule {
+  border:0;
+  border-top:1px solid var(--line);
+  margin:23px 0;
+}
+
+/* ГЛАВНАЯ */
+
+.stats {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+  margin:25px 0;
+}
+
+.stat {
+  background:var(--paper2);
+  padding:15px 5px;
+  text-align:center;
+}
+
+.stat strong {
+  display:block;
+  font-size:24px;
+  color:var(--green);
+}
+
+.stat span {
+  font:9px Arial,sans-serif;
+  letter-spacing:1px;
+  color:var(--muted);
+}
+
+.panel {
+  background:#e6dfcf;
+  padding:19px;
+  margin-top:15px;
+  border-left:3px solid var(--gold);
+}
+
+.panel p {
+  font-size:14px;
+  line-height:1.8;
+  color:#656457;
+  margin-top:6px;
+}
+
+.button {
+  display:inline-block;
+  background:var(--green);
+  color:white;
+  border:0;
+  padding:13px 18px;
+  font:11px Arial,sans-serif;
+  letter-spacing:1px;
+  cursor:pointer;
+}
+
+.button:hover {
+  background:var(--green2);
+}
+
+/* КАТАЛОГ */
+
+.search {
+  width:100%;
+  padding:14px;
+  border:1px solid var(--line);
+  background:#f6f2e9;
+  font-size:14px;
+  margin:12px 0;
+  color:var(--ink);
+}
+
+.filters {
+  display:flex;
+  gap:10px;
+  margin-bottom:17px;
+}
+
+.filters select {
+  flex:1;
+  min-width:0;
+  padding:12px 8px;
+  background:#f6f2e9;
+  border:1px solid var(--line);
+  color:var(--ink);
+  font-size:13px;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:13px;
+}
+
+.card {
+  background:#f5f1e7;
+  border:1px solid #d5cdbb;
+  cursor:pointer;
+  overflow:hidden;
+}
+
+.card:hover {
+  border-color:var(--gold);
+}
+
+.card-photo {
+  width:100%;
+  min-height:100px;
+  background:#d4cbb9;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.card-photo img {
+  display:block;
+  width:100%;
+  height:auto;
+  object-fit:contain;
+}
+
+.placeholder {
+  font-size:37px;
+  color:var(--green);
+  padding:35px 10px;
+}
+
+.card-info {
+  padding:13px;
+}
+
+.record {
+  font:10px Arial,sans-serif;
+  letter-spacing:2px;
+  color:var(--gold);
+}
+
+.card h3 {
+  font-size:17px;
+  margin:9px 0 6px;
+  line-height:1.35;
+}
+
+.card p {
+  font:12px Arial,sans-serif;
+  color:var(--muted);
+  margin:5px 0;
+}
+
+.status {
+  font:10px Arial,sans-serif;
+  color:#4e704f;
+  margin-top:11px;
+}
+
+.empty {
+  text-align:center;
+  color:var(--muted);
+  padding:30px;
+  grid-column:1/-1;
+}
+
+/* ЛИЧНОЕ ДЕЛО */
+
+.back {
+  margin-bottom:22px;
+}
+
+.profile-layout {
+  display:grid;
+  grid-template-columns:280px minmax(0,1fr);
+  gap:27px;
+  align-items:start;
+  margin-top:15px;
+}
+
+.profile-sidebar {
+  background:var(--paper2);
+  border:1px solid var(--line);
+  padding:12px;
+}
+
 .profile-photo {
- width:100%;
- height:auto;
- min-height:0;
- background:transparent;
- display:flex;
- align-items:center;
- justify-content:center;
- overflow:visible;
+  width:100%;
+  height:auto;
+  min-height:0;
+  background:transparent;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:visible;
 }
 
 .profile-photo img {
- width:100%;
- height:auto;
- max-height:none;
- object-fit:contain;
- display:block;
+  display:block;
+  width:100%;
+  height:auto;
+  max-height:none;
+  object-fit:contain;
 }
-.details{width:100%;border-collapse:collapse;margin:15px 0;font-size:13px}
-.details td{padding:11px 5px;border-bottom:1px solid #cec5b3}
-.details td:first-child{color:var(--muted);width:42%}
-.bio{font-size:14px;line-height:1.8;white-space:pre-line}
-.empty{text-align:center;color:var(--muted);padding:30px 10px;grid-column:1/-1}
-footer{
- background:var(--green);color:#c8c0ae;text-align:center;
- padding:25px 12px;font:10px Arial,sans-serif;letter-spacing:2px
+
+.profile-number {
+  font:10px Arial,sans-serif;
+  letter-spacing:2px;
+  color:var(--gold);
+  margin-top:15px;
+  overflow-wrap:anywhere;
 }
-@media(min-width:600px){
- .logo{font-size:38px}
- .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
- .photo{height:190px}
+
+.profile-status {
+  font:11px Arial,sans-serif;
+  color:#4e704f;
+  margin-top:10px;
 }
+
+.profile-content h1 {
+  margin-top:8px;
+}
+
+.details {
+  width:100%;
+  border-collapse:collapse;
+  margin:14px 0;
+  font-size:13px;
+}
+
+.details td {
+  padding:12px 6px;
+  border-bottom:1px solid #cec5b3;
+  vertical-align:top;
+  line-height:1.5;
+  overflow-wrap:anywhere;
+}
+
+.details td:first-child {
+  color:var(--muted);
+  width:43%;
+}
+
+.bio {
+  font-size:14px;
+  line-height:1.85;
+  white-space:pre-line;
+}
+
+.profile-content .panel h3 {
+  margin:17px 0 5px;
+}
+
+.profile-content .panel h3:first-child {
+  margin-top:0;
+}
+
+/* ЗАЯВИТЕЛЬ */
 
 .applicant {
- background:#e3dccb;
- padding:20px;
- margin-top:25px;
- border-top:3px solid #a68b58;
-}
-.applicant h2 {
- margin-top:10px;
-}
-.applicant a {
- color:#35483d;
- text-decoration:underline;
- font-weight:bold;
- overflow-wrap:anywhere;
-}
-.applicant-note {
- color:#77776b;
- font:10px Arial,sans-serif;
- letter-spacing:1px;
- margin-top:18px;
-}
-.profile-content h2 {
- margin-top:27px;
-}
-.profile-content .panel h3 {
- font-size:16px;
- margin-bottom:5px;
-}
-.profile-content .panel p {
- line-height:1.7;
+  background:var(--paper2);
+  padding:20px;
+  margin-top:25px;
+  border-top:3px solid var(--gold);
 }
 
+.applicant h2 {
+  margin-top:10px;
+}
+
+.applicant a {
+  color:var(--green);
+  text-decoration:underline;
+  font-weight:bold;
+  overflow-wrap:anywhere;
+}
+
+.applicant-note {
+  font:10px Arial,sans-serif;
+  letter-spacing:1px;
+  color:var(--muted);
+  line-height:1.6;
+  margin-top:18px;
+}
+
+/* ПРОЧИЕ РАЗДЕЛЫ */
+
+footer {
+  background:var(--green);
+  color:#c8c0ae;
+  text-align:center;
+  padding:27px 12px;
+  font:10px Arial,sans-serif;
+  letter-spacing:2px;
+  line-height:2;
+}
+
+@media(max-width:650px) {
+  .logo { font-size:28px; }
+
+  main {
+    padding:25px 17px 40px;
+  }
+
+  .grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+  }
+
+  .profile-layout {
+    grid-template-columns:1fr;
+    gap:17px;
+  }
+
+  .profile-sidebar {
+    max-width:100%;
+  }
+
+  .filters {
+    gap:7px;
+  }
+
+  .filters select {
+    font-size:12px;
+  }
+}
+
+@media(max-width:360px) {
+  .grid {
+    grid-template-columns:1fr;
+  }
+
+  .stats {
+    gap:5px;
+  }
+
+  .stat span {
+    font-size:8px;
+  }
+}
 </style>
 </head>
+
 <body>
 
 <header>
- <div class="topline">MUNICIPAL RECORDS DEPARTMENT</div>
- <div class="logo">COYOTE VALLEY</div>
- <div class="subtitle">CITY ARCHIVE · EST. 19XX</div>
+  <div class="topline">MUNICIPAL RECORDS DEPARTMENT</div>
+  <div class="logo">COYOTE VALLEY</div>
+  <div class="subtitle">CITY ARCHIVE · EST. 19XX</div>
 </header>
 
 <nav>
- <button class="active" onclick="showPage('home',this)">ГЛАВНАЯ</button>
- <button onclick="showPage('residents',this)">ЖИТЕЛИ</button>
- <button onclick="showPage('history',this)">ИСТОРИЯ</button>
- <button onclick="showPage('organizations',this)">ОРГАНИЗАЦИИ</button>
- <button onclick="showPage('contacts',this)">АРХИВ</button>
+  <button class="active" onclick="showPage('home',this)">ГЛАВНАЯ</button>
+  <button onclick="showPage('residents',this)">ЖИТЕЛИ</button>
+  <button onclick="showPage('history',this)">ИСТОРИЯ</button>
+  <button onclick="showPage('organizations',this)">ОРГАНИЗАЦИИ</button>
+  <button onclick="showPage('contacts',this)">АРХИВ</button>
 </nav>
 
 <main>
 
+<!-- ГЛАВНАЯ -->
+
 <section id="home" class="page active">
- <div class="eyebrow">OFFICIAL CITY DATABASE</div>
- <h1>Городской архив</h1>
- <p class="intro">
- Добро пожаловать в электронный архив Койот-Вэлли.
- Здесь собраны сведения о жителях, организациях
- и истории нашего города.
- </p>
- <div class="stats">
-  <div class="stat"><strong id="totalResidents">0</strong><span>ЖИТЕЛЕЙ</span></div>
-  <div class="stat"><strong>00</strong><span>ОРГАНИЗАЦИЙ</span></div>
-  <div class="stat"><strong>001</strong><span>АРХИВ</span></div>
- </div>
- <hr class="rule">
- <h2>Реестр жителей</h2>
- <p class="intro">Личные дела зарегистрированных жителей.</p>
- <button class="button" onclick="showPage('residents')">ОТКРЫТЬ РЕЕСТР →</button>
- <div class="panel">
-  <h3>Муниципальное уведомление</h3>
-  <p>Архив находится в стадии формирования. Новые записи добавляются администрацией.</p>
- </div>
+
+  <div class="eyebrow">OFFICIAL CITY DATABASE</div>
+
+  <h1>Городской архив</h1>
+
+  <p class="intro">
+    Добро пожаловать в электронный архив Койот-Вэлли.
+    Здесь собраны сведения о жителях, организациях
+    и истории нашего города.
+  </p>
+
+  <div class="stats">
+    <div class="stat">
+      <strong id="totalResidents">0</strong>
+      <span>ЖИТЕЛЕЙ</span>
+    </div>
+
+    <div class="stat">
+      <strong id="totalOrganizations">0</strong>
+      <span>ОРГАНИЗАЦИЙ</span>
+    </div>
+
+    <div class="stat">
+      <strong>001</strong>
+      <span>АРХИВ</span>
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <h2>Реестр жителей</h2>
+
+  <p class="intro">
+    Личные дела зарегистрированных жителей Койот-Вэлли.
+  </p>
+
+  <button class="button" onclick="showPage('residents')">
+    ОТКРЫТЬ РЕЕСТР →
+  </button>
+
+  <div class="panel">
+    <h3>Муниципальное уведомление</h3>
+    <p>
+      Электронный архив находится в стадии формирования.
+      Новые записи добавляются по мере регистрации жителей.
+    </p>
+  </div>
+
 </section>
+
+<!-- ЖИТЕЛИ -->
 
 <section id="residents" class="page">
- <div class="eyebrow">DATABASE / PERSONNEL</div>
- <h1>Реестр жителей</h1>
- <p class="intro">Каталог зарегистрированных жителей Койот-Вэлли.</p>
- <hr class="rule">
- <input class="search" id="search" placeholder="Поиск по имени или номеру..." oninput="filterResidents()">
- <div class="filters">
-  <select id="jobFilter" onchange="filterResidents()">
-   <option value="">Все профессии</option>
-   <option value="Медицина">Медицина</option>
-   <option value="Правопорядок">Правопорядок</option>
-   <option value="Бизнес">Бизнес</option>
-   <option value="Другое">Другое</option>
-  </select>
-  <select id="statusFilter" onchange="filterResidents()">
-   <option value="">Все статусы</option>
-   <option value="Активный">Активные</option>
-   <option value="Неактивный">Неактивные</option>
-  </select>
- </div>
- <div class="grid" id="residentList"></div>
+
+  <div class="eyebrow">DATABASE / PERSONNEL</div>
+
+  <h1>Реестр жителей</h1>
+
+  <p class="intro">
+    Каталог зарегистрированных жителей Койот-Вэлли.
+  </p>
+
+  <hr class="rule">
+
+  <input
+    class="search"
+    id="search"
+    placeholder="Поиск по имени или номеру..."
+    oninput="filterResidents()"
+  >
+
+  <div class="filters">
+
+    <select id="jobFilter" onchange="filterResidents()">
+      <option value="">Все профессии</option>
+      <option value="Военная служба">Военная служба</option>
+      <option value="Медицина">Медицина</option>
+      <option value="Правопорядок">Правопорядок</option>
+      <option value="Бизнес">Бизнес</option>
+      <option value="Другое">Другое</option>
+    </select>
+
+    <select id="statusFilter" onchange="filterResidents()">
+      <option value="">Все статусы</option>
+      <option value="Активный">Активные</option>
+      <option value="Неактивный">Неактивные</option>
+    </select>
+
+  </div>
+
+  <div class="grid" id="residentList"></div>
+
 </section>
+
+<!-- ПРОФИЛЬ ЖИТЕЛЯ -->
 
 <section id="profile" class="page">
- <button class="button back" onclick="showPage('residents')">← К РЕЕСТРУ</button>
 
- <div class="eyebrow">MUNICIPAL PERSONNEL FILE</div>
+  <button class="button back" onclick="showPage('residents')">
+    ← К РЕЕСТРУ
+  </button>
 
- <div class="profile-layout">
-  <div class="profile-sidebar">
-   <div class="profile-photo" id="profilePhoto">✦</div>
-   <div class="profile-number" id="profileNumber"></div>
-   <div class="profile-status" id="profileStatus"></div>
+  <div class="eyebrow">MUNICIPAL PERSONNEL FILE</div>
+
+  <div class="profile-layout">
+
+    <div class="profile-sidebar">
+
+      <div class="profile-photo" id="profilePhoto">
+        ✦
+      </div>
+
+      <div class="profile-number" id="profileNumber"></div>
+
+      <div class="profile-status" id="profileStatus"></div>
+
+    </div>
+
+    <div class="profile-content">
+
+      <h1 id="profileName"></h1>
+
+      <p class="intro" id="profileDescription"></p>
+
+      <hr class="rule">
+
+      <h2>I. Личное дело жителя</h2>
+
+      <table class="details" id="profileDetails"></table>
+
+      <h2>II. Внешние данные</h2>
+
+      <table class="details" id="appearanceDetails"></table>
+
+      <h2>III. Личностная характеристика</h2>
+
+      <div class="panel">
+
+        <h3>Основные черты характера</h3>
+        <p id="personality"></p>
+
+        <h3>Увлечения и интересы</h3>
+        <p id="interests"></p>
+
+        <h3>Сильные стороны</h3>
+        <p id="strengths"></p>
+
+        <h3>Слабости и страхи</h3>
+        <p id="weaknesses"></p>
+
+        <h3>Привычки и особенности поведения</h3>
+        <p id="habits"></p>
+
+      </div>
+
+      <h2>IV. Биографические сведения</h2>
+
+      <div class="panel bio" id="profileBio"></div>
+
+      <h2>V. Дополнительные сведения</h2>
+
+      <div class="panel">
+
+        <h3>Родственные и социальные связи</h3>
+        <p id="connections"></p>
+
+        <h3>Планы и интересы в городе</h3>
+        <p id="plans"></p>
+
+      </div>
+
+      <hr class="rule">
+
+      <div class="applicant">
+
+        <div class="eyebrow">REGISTRATION INFORMATION</div>
+
+        <h2>VI. Сведения о заявителе</h2>
+
+        <table class="details">
+
+          <tr>
+            <td>Игровой псевдоним</td>
+            <td id="applicantNickname"></td>
+          </tr>
+
+          <tr>
+            <td>Контакт для связи</td>
+            <td>
+              <a
+                id="applicantTelegram"
+                target="_blank"
+                rel="noopener noreferrer"
+              >Открыть Telegram-профиль</a>
+            </td>
+          </tr>
+
+        </table>
+
+        <p class="applicant-note">
+          СЛУЖЕБНАЯ ИНФОРМАЦИЯ РЕГИСТРАЦИОННОЙ АНКЕТЫ
+        </p>
+
+      </div>
+
+    </div>
+
   </div>
 
-  <div class="profile-content">
-   <h1 id="profileName"></h1>
-   <p class="intro" id="profileDescription"></p>
-
-   <hr class="rule">
-
-   <h2>I. Личное дело жителя</h2>
-   <table class="details" id="profileDetails"></table>
-
-   <h2>II. Внешние данные</h2>
-   <table class="details" id="appearanceDetails"></table>
-
-   <h2>III. Личностная характеристика</h2>
-   <div class="panel">
-    <h3>Основные черты характера</h3>
-    <p id="personality"></p>
-
-    <h3>Увлечения и интересы</h3>
-    <p id="interests"></p>
-
-    <h3>Сильные стороны</h3>
-    <p id="strengths"></p>
-
-    <h3>Слабости и страхи</h3>
-    <p id="weaknesses"></p>
-
-    <h3>Привычки и особенности поведения</h3>
-    <p id="habits"></p>
-   </div>
-
-   <h2>IV. Биографические сведения</h2>
-   <div class="panel bio" id="profileBio"></div>
-
-   <h2>V. Дополнительные сведения</h2>
-   <div class="panel">
-    <h3>Родственные и социальные связи</h3>
-    <p id="connections"></p>
-
-    <h3>Планы и интересы в городе</h3>
-    <p id="plans"></p>
-   </div>
-
-   <hr class="rule">
-
-   <div class="applicant">
-    <div class="eyebrow">VI. REGISTRATION INFORMATION</div>
-    <h2>Сведения о заявителе</h2>
-
-    <table class="details">
-     <tr>
-      <td>Игровой псевдоним</td>
-      <td id="applicantNickname"></td>
-     </tr>
-     <tr>
-      <td>Контакт для связи</td>
-      <td><a id="applicantTelegram" target="_blank" rel="noopener">Открыть Telegram-профиль</a></td>
-     </tr>
-    </table>
-
-    <p class="applicant-note">
-     Служебная информация регистрационной анкеты.
-    </p>
-   </div>
-  </div>
- </div>
 </section>
- <button class="button back" onclick="showPage('residents')">← К РЕЕСТРУ</button>
- <div class="eyebrow" id="profileNumber"></div>
- <div class="profile-photo" id="profilePhoto">✦</div>
- <h1 id="profileName"></h1>
- <p class="intro" id="profileDescription"></p>
- <hr class="rule">
- <h2>Персональные сведения</h2>
- <table class="details" id="profileDetails"></table>
- <h2>Биография</h2>
- <div class="panel bio" id="profileBio"></div>
-</section>
+
+<!-- ИСТОРИЯ -->
 
 <section id="history" class="page">
- <div class="eyebrow">HISTORICAL RECORDS</div>
- <h1>История города</h1>
- <p class="intro">Исторические документы и хроника Койот-Вэлли.</p>
- <div class="panel"><h3>Архив пополняется</h3><p>История города появится здесь.</p></div>
+
+  <div class="eyebrow">HISTORICAL RECORDS</div>
+
+  <h1>История города</h1>
+
+  <p class="intro">
+    Исторические документы и хроника Койот-Вэлли.
+  </p>
+
+  <div class="panel">
+    <h3>Архив пополняется</h3>
+    <p>
+      История города будет опубликована здесь.
+    </p>
+  </div>
+
 </section>
+
+<!-- ОРГАНИЗАЦИИ -->
 
 <section id="organizations" class="page">
- <div class="eyebrow">CITY DIRECTORY</div>
- <h1>Организации</h1>
- <p class="intro">Предприятия, учреждения и общественные объединения.</p>
- <div class="panel"><h3>Раздел формируется</h3></div>
+
+  <div class="eyebrow">CITY DIRECTORY</div>
+
+  <h1>Организации</h1>
+
+  <p class="intro">
+    Предприятия, учреждения и общественные объединения города.
+  </p>
+
+  <div class="panel">
+    <h3>Раздел формируется</h3>
+    <p>
+      Сведения об организациях появятся после их регистрации.
+    </p>
+  </div>
+
 </section>
 
+<!-- АРХИВ -->
+
 <section id="contacts" class="page">
- <div class="eyebrow">ARCHIVE INFORMATION</div>
- <h1>Сведения об архиве</h1>
- <p class="intro">Электронная энциклопедия Койот-Вэлли — информационный проект сообщества.</p>
- <div class="panel"><h3>Администрация архива</h3><p>Ведение и обновление записей осуществляется администрацией проекта.</p></div>
+
+  <div class="eyebrow">ARCHIVE INFORMATION</div>
+
+  <h1>Сведения об архиве</h1>
+
+  <p class="intro">
+    Электронная энциклопедия Койот-Вэлли —
+    информационный проект ролевого сообщества.
+  </p>
+
+  <div class="panel">
+    <h3>Администрация архива</h3>
+    <p>
+      Ведение, регистрация и обновление личных дел
+      осуществляется администрацией проекта.
+    </p>
+  </div>
+
 </section>
 
 </main>
 
 <footer>
- COYOTE VALLEY · MUNICIPAL ARCHIVE<br><br>
- DIGITAL RECORDS SYSTEM
+  COYOTE VALLEY · MUNICIPAL ARCHIVE
+  <br>
+  DIGITAL RECORDS SYSTEM
 </footer>
 
 <script>
+
+/* =================================
+   БАЗА ЖИТЕЛЕЙ
+================================= */
+
 const residents = [
- 
+
 {
  id:"CV-0001",
+
  name:"Элиас Теодор Уитакер",
  fullName:"Elias Theodore Whitaker",
+
  gameNickname:"Хоттабыч / Хомячок",
 
  job:"Военный, бывший морпех",
- category:"Другое",
+ category:"Военная служба",
+
  age:"36 лет",
  birthDate:"1990 год",
  gender:"Мужской",
@@ -379,200 +799,429 @@ const residents = [
  house:"№ 46",
  postalCode:"80471",
  housing:"Двухэтажный частный дом",
+
  address:"17th Pine Street, дом № 46",
 
  height:"198 см",
  build:"Спортивное телосложение",
  hair:"Белые",
  eyes:"Серые",
- features:"Шрам через лицо, полученный во время военных действий",
+
+ features:"Шрам через лицо после военных действий",
  faceClaim:"Арктический волк",
 
- personality:"Дисциплинированный, суровый, вспыльчивый, требовательный. В некоторых случаях шутливый, а вне службы — даже добрый.",
- interests:"Военное дело, обучение солдат.",
- strengths:"Силен духом и телом.",
- weaknesses:"Боится потерять кого-либо из близких. При определённых обстоятельствах возникают флешбэки, связанные с военными действиями.",
- habits:"Любит следить за своей внешностью. Иногда бывает немного неуклюжим.",
+ personality:
+ "Дисциплинированный, суровый, вспыльчивый, требовательный. В некоторых случаях шутливый. Если не служит, то даже добрый.",
+
+ interests:
+ "Военное дело, обучение солдат.",
+
+ strengths:
+ "Силен духом и телом.",
+
+ weaknesses:
+ "Слабости перед потерей кого-либо из близких. При некоторых обстоятельствах возникают флешбэки, связанные с военными действиями.",
+
+ habits:
+ "Любит следить за своей внешностью. Немного неуклюжий в некоторых обстоятельствах.",
 
  status:"Активный",
- description:"Бывший морской пехотинец. Подполковник в отставке.",
 
- bio:"Родился в 1990 году в штате Колорадо. С молодости уважал военное дело. Его мать работала няней в детском садике, а отец был военным морским пехотинцем. Элиас рос в вполне заурядной семье и окончил школу с отличием.\n\nВ 19 лет он пошёл в армию. В 21 год побывал на своих первых военных заданиях. Во время боевых действий, уже в 24 года, получил шрам через глаз, обретя пугающий вид. Несмотря на ранение, он продолжил службу и перешёл в морскую пехоту.\n\nДослужившись до подполковника в 35 лет, Элиас ушёл в отставку, поскольку сильно устал от службы.\n\nВо время одного путешествия он проезжал мимо городка Койот-Вэлли. Город очень понравился Элиасу, и тогда он решил здесь остаться. Уже через месяц он переехал сюда и купил себе двухэтажный домик.\n\nУзнав, что в Койот-Вэлли есть небольшая военная база, Элиас решил пойти туда и обучать новых военнослужащих.\n\nЕго история в Койот-Вэлли посвящена повседневной жизни, общению и новым знакомствам, а не участию в военных конфликтах.",
+ description:
+ "Бывший морской пехотинец. Подполковник в отставке.",
 
- connections:"Родственников или знакомых у Элиаса в Койот-Вэлли нет.",
+ bio:
+ "Родился в 1990 году в штате Колорадо. С молодости уважал военное дело. Его мать работала няней в детском садике, а отец был военным морским пехотинцем.\n\n"+
+ "Он рос в вполне заурядной семье и окончил школу с отличием. В 19 лет пошёл в армию.\n\n"+
+ "В 21 год Элиас побывал на своих первых военных заданиях. Во время боевых действий, уже в 24 года, получил шрам через глаз, обретя пугающий вид. Несмотря на ранение, продолжил службу и перешёл в морскую пехоту.\n\n"+
+ "Дослужившись до подполковника в 35 лет, Элиас ушёл в отставку, так как сильно устал.\n\n"+
+ "Во время одного путешествия он проезжал мимо городка Койот-Вэлли. Город очень понравился Элиасу, и тогда он решил здесь остаться. Уже через месяц он переехал сюда и купил себе двухэтажный домик.\n\n"+
+ "Узнав, что в Койот-Вэлли есть небольшая военная база, он решил пойти туда и обучать новых военнослужащих.\n\n"+
+ "История Элиаса в Койот-Вэлли ориентирована на повседневную жизнь, общение и новые знакомства, а не на военные конфликты.",
 
- plans:"Элиас планирует посещать городские парки, торговые центры и парки развлечений.",
+ connections:
+ "Родственников или знакомых у Элиаса нет в Койот-Вэлли.",
 
- applicantNickname:"Хоттабыч / Хомячок",
- applicantTelegram:"https://t.me/XOMAFHOCb",
+ plans:
+ "Элиас планирует посещать парки, торговые центры и парки развлечений.",
 
- photo:"images/elias-whitaker.jpg"
-},
- {
-  id:"CV-0002",
-  name:"Эмили Картер",
-  job:"Медицинский работник",
-  category:"Медицина",
-  age:"Не указано",
-  address:"Не указано",
-  status:"Активный",
-  description:"Зарегистрированная жительница Койот-Вэлли.",
-  bio:"Биография пока не добавлена.",
-  photo:""
- }
+ applicantNickname:
+ "Хоттабыч / Хомячок",
+
+ applicantTelegram:
+ "https://t.me/XOMAFHOCb",
+
+ photo:
+ "images/elias-whitaker.jpg"
+
+}
+
 ];
 
-function showPage(id,button){
- document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
- document.getElementById(id).classList.add("active");
- document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
- if(button) button.classList.add("active");
- window.scrollTo(0,0);
+
+/* =================================
+   НАСТРОЙКИ АРХИВА
+================================= */
+
+const organizations = [];
+
+document.getElementById("totalOrganizations").textContent =
+ organizations.length.toString().padStart(2,"0");
+
+document.getElementById("totalResidents").textContent =
+ residents.length;
+
+
+/* =================================
+   НАВИГАЦИЯ
+================================= */
+
+function showPage(id,button) {
+
+ document.querySelectorAll(".page").forEach(page=>{
+  page.classList.remove("active");
+ });
+
+ const target=document.getElementById(id);
+
+ if(!target) return;
+
+ target.classList.add("active");
+
+ document.querySelectorAll("nav button").forEach(btn=>{
+  btn.classList.remove("active");
+ });
+
+ if(button) {
+  button.classList.add("active");
+ }
+
+ window.scrollTo({
+  top:0,
+  behavior:"instant"
+ });
+
 }
 
-function makePhoto(person,large=false){
- if(person.photo){
+
+/* =================================
+   ФОТОГРАФИИ
+================================= */
+
+function makePhoto(person) {
+
+ if(person.photo) {
+
   const img=document.createElement("img");
+
   img.src=person.photo;
-  img.alt="Фотография "+person.name;
-  img.onerror=()=>{img.remove();};
+  img.alt="Портрет: "+person.name;
+  img.loading="lazy";
+
+  img.onerror=()=>{
+
+   img.remove();
+
+   const fallback=document.createElement("div");
+
+   fallback.className="placeholder";
+
+   fallback.textContent=person.name
+    .split(" ")
+    .map(word=>word[0])
+    .join("")
+    .slice(0,3);
+
+   const parent=document.getElementById("profilePhoto");
+
+   if(parent && parent.children.length===0) {
+    parent.appendChild(fallback);
+   }
+
+  };
+
   return img;
+
  }
+
  const placeholder=document.createElement("div");
- placeholder.textContent=person.name.split(" ").map(x=>x[0]).join("");
- placeholder.style.cssText="font-size:"+(large?"65px":"36px")+";color:#35483d";
+
+ placeholder.className="placeholder";
+
+ placeholder.textContent=person.name
+  .split(" ")
+  .map(word=>word[0])
+  .join("")
+  .slice(0,3);
+
  return placeholder;
+
 }
 
-function renderResidents(items){
+
+/* =================================
+   КАТАЛОГ ЖИТЕЛЕЙ
+================================= */
+
+function renderResidents(items) {
+
  const list=document.getElementById("residentList");
+
  list.innerHTML="";
- if(!items.length){
-  list.innerHTML='<div class="empty">По вашему запросу ничего не найдено.</div>';
+
+ if(!items.length) {
+
+  const empty=document.createElement("div");
+
+  empty.className="empty";
+  empty.textContent="По вашему запросу ничего не найдено.";
+
+  list.appendChild(empty);
+
   return;
+
  }
- items.forEach(r=>{
+
+ items.forEach(person=>{
+
   const card=document.createElement("article");
+
   card.className="card";
+
   const photo=document.createElement("div");
-  photo.className="photo";
-  photo.appendChild(makePhoto(r));
+
+  photo.className="card-photo";
+
+  photo.appendChild(makePhoto(person));
+
   const info=document.createElement("div");
+
   info.className="card-info";
+
   const number=document.createElement("div");
+
   number.className="record";
-  number.textContent=r.id;
+  number.textContent=person.id;
+
   const name=document.createElement("h3");
-  name.textContent=r.name;
+
+  name.textContent=person.name;
+
   const job=document.createElement("p");
-  job.textContent=r.job;
+
+  job.textContent=person.job;
+
   const status=document.createElement("div");
+
   status.className="status";
-  status.textContent="● "+r.status;
+  status.textContent="● "+person.status;
+
   info.append(number,name,job,status);
+
   card.append(photo,info);
-  card.onclick=()=>openProfile(r.id);
+
+  card.onclick=()=>openProfile(person.id);
+
   list.appendChild(card);
+
  });
+
 }
 
-function filterResidents(){
- const q=document.getElementById("search").value.toLowerCase().trim();
- const job=document.getElementById("jobFilter").value;
- const status=document.getElementById("statusFilter").value;
- const result=residents.filter(r=>{
-  const text=(r.name+" "+r.id+" "+r.job).toLowerCase();
-  return text.includes(q)&&(!job||r.category===job)&&(!status||r.status===status);
+
+/* =================================
+   ПОИСК И ФИЛЬТРЫ
+================================= */
+
+function filterResidents() {
+
+ const query=document
+  .getElementById("search")
+  .value
+  .toLowerCase()
+  .trim();
+
+ const job=document
+  .getElementById("jobFilter")
+  .value;
+
+ const status=document
+  .getElementById("statusFilter")
+  .value;
+
+ const filtered=residents.filter(person=>{
+
+  const text=(
+   person.name+" "+
+   person.fullName+" "+
+   person.id+" "+
+   person.job
+  ).toLowerCase();
+
+  const matchesSearch=text.includes(query);
+
+  const matchesJob=!job || person.category===job;
+
+  const matchesStatus=!status || person.status===status;
+
+  return matchesSearch && matchesJob && matchesStatus;
+
  });
- renderResidents(result);
+
+ renderResidents(filtered);
+
 }
 
+
+/* =================================
+   ТАБЛИЦЫ ЛИЧНОГО ДЕЛА
+================================= */
+
+function fillTable(elementId,rows) {
+
+ const table=document.getElementById(elementId);
+
+ table.innerHTML="";
+
+ rows.forEach(([label,value])=>{
+
+  const tr=document.createElement("tr");
+
+  const td1=document.createElement("td");
+
+  const td2=document.createElement("td");
+
+  td1.textContent=label;
+
+  td2.textContent=value || "Не указано";
+
+  tr.append(td1,td2);
+
+  table.appendChild(tr);
+
+ });
+
+}
+
+
+/* =================================
+   ОТКРЫТИЕ ПРОФИЛЯ
+================================= */
 
 function openProfile(id) {
- const r = residents.find(x => x.id === id);
- if (!r) return;
 
- document.getElementById("profileNumber").textContent =
-  "RECORD NUMBER / " + r.id;
+ const person=residents.find(item=>item.id===id);
 
- document.getElementById("profileName").textContent = r.name;
+ if(!person) return;
 
- document.getElementById("profileDescription").textContent =
-  r.fullName + " · " + r.job;
+ document.getElementById("profileNumber").textContent=
+  "RECORD NUMBER / "+person.id;
 
- document.getElementById("profileStatus").textContent =
-  "● " + r.status;
+ document.getElementById("profileName").textContent=
+  person.name;
 
- document.getElementById("profileBio").textContent = r.bio;
+ document.getElementById("profileDescription").textContent=
+  person.fullName+" · "+person.job;
 
- const photo = document.getElementById("profilePhoto");
- photo.innerHTML = "";
- photo.appendChild(makePhoto(r, true));
+ document.getElementById("profileStatus").textContent=
+  "● "+person.status;
 
- const personal = [
-  ["Полное имя", r.fullName],
-  ["Возраст", r.age],
-  ["Дата рождения", r.birthDate],
-  ["Пол", r.gender],
-  ["Место рождения", r.birthplace],
-  ["Профессия", r.job],
-  ["Семейное положение", r.family],
-  ["Улица", r.street],
-  ["Дом", r.house],
-  ["Почтовый индекс", r.postalCode],
-  ["Тип жилища", r.housing]
- ];
+ const photo=document.getElementById("profilePhoto");
 
- const appearance = [
-  ["Рост", r.height],
-  ["Телосложение", r.build],
-  ["Цвет волос", r.hair],
-  ["Цвет глаз", r.eyes],
-  ["Отличительные особенности", r.features],
-  ["Прототип внешности", r.faceClaim]
- ];
+ photo.innerHTML="";
 
- function fillTable(elementId, rows) {
-  const table = document.getElementById(elementId);
-  table.innerHTML = "";
+ photo.appendChild(makePhoto(person));
 
-  rows.forEach(([label, value]) => {
-   const tr = document.createElement("tr");
-   const td1 = document.createElement("td");
-   const td2 = document.createElement("td");
+ /* Личное дело */
 
-   td1.textContent = label;
-   td2.textContent = value || "Не указано";
+ fillTable("profileDetails",[
 
-   tr.append(td1, td2);
-   table.appendChild(tr);
-  });
- }
+  ["Полное имя",person.fullName],
+  ["Возраст",person.age],
+  ["Дата рождения",person.birthDate],
+  ["Пол",person.gender],
+  ["Место рождения",person.birthplace],
+  ["Род занятий / профессия",person.job],
+  ["Семейное положение",person.family],
+  ["Улица",person.street],
+  ["Дом",person.house],
+  ["Почтовый индекс",person.postalCode],
+  ["Тип жилища",person.housing]
 
- fillTable("profileDetails", personal);
- fillTable("appearanceDetails", appearance);
+ ]);
 
- document.getElementById("personality").textContent = r.personality;
- document.getElementById("interests").textContent = r.interests;
- document.getElementById("strengths").textContent = r.strengths;
- document.getElementById("weaknesses").textContent = r.weaknesses;
- document.getElementById("habits").textContent = r.habits;
+ /* Внешние данные */
 
- document.getElementById("connections").textContent = r.connections;
- document.getElementById("plans").textContent = r.plans;
+ fillTable("appearanceDetails",[
 
- document.getElementById("applicantNickname").textContent =
-  r.applicantNickname;
+  ["Рост",person.height],
+  ["Телосложение",person.build],
+  ["Цвет волос",person.hair],
+  ["Цвет глаз",person.eyes],
+  ["Отличительные особенности",person.features],
+  ["Прототип внешности (Face Claim)",person.faceClaim]
 
- const telegram = document.getElementById("applicantTelegram");
- telegram.href = r.applicantTelegram;
- telegram.textContent = "@" + r.applicantTelegram.split("/").filter(Boolean).pop();
+ ]);
+
+ /* Характеристика */
+
+ document.getElementById("personality").textContent=
+  person.personality;
+
+ document.getElementById("interests").textContent=
+  person.interests;
+
+ document.getElementById("strengths").textContent=
+  person.strengths;
+
+ document.getElementById("weaknesses").textContent=
+  person.weaknesses;
+
+ document.getElementById("habits").textContent=
+  person.habits;
+
+ /* Биография */
+
+ document.getElementById("profileBio").textContent=
+  person.bio;
+
+ /* Дополнительные сведения */
+
+ document.getElementById("connections").textContent=
+  person.connections;
+
+ document.getElementById("plans").textContent=
+  person.plans;
+
+ /* Заявитель */
+
+ document.getElementById("applicantNickname").textContent=
+  person.applicantNickname;
+
+ const telegram=document.getElementById("applicantTelegram");
+
+ telegram.href=person.applicantTelegram;
+
+ telegram.textContent=
+  "@"+person.applicantTelegram
+   .split("/")
+   .filter(Boolean)
+   .pop();
+
+ /* Переход */
 
  showPage("profile");
+
 }
 
-document.getElementById("totalResidents").textContent=residents.length;
+
+/* =================================
+   ЗАПУСК ПРИЛОЖЕНИЯ
+================================= */
+
 renderResidents(residents);
+
 </script>
+
 </body>
 </html>
