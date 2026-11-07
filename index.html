@@ -209,6 +209,83 @@ footer{
 
 <section id="profile" class="page">
  <button class="button back" onclick="showPage('residents')">← К РЕЕСТРУ</button>
+
+ <div class="eyebrow">MUNICIPAL PERSONNEL FILE</div>
+
+ <div class="profile-layout">
+  <div class="profile-sidebar">
+   <div class="profile-photo" id="profilePhoto">✦</div>
+   <div class="profile-number" id="profileNumber"></div>
+   <div class="profile-status" id="profileStatus"></div>
+  </div>
+
+  <div class="profile-content">
+   <h1 id="profileName"></h1>
+   <p class="intro" id="profileDescription"></p>
+
+   <hr class="rule">
+
+   <h2>I. Личное дело жителя</h2>
+   <table class="details" id="profileDetails"></table>
+
+   <h2>II. Внешние данные</h2>
+   <table class="details" id="appearanceDetails"></table>
+
+   <h2>III. Личностная характеристика</h2>
+   <div class="panel">
+    <h3>Основные черты характера</h3>
+    <p id="personality"></p>
+
+    <h3>Увлечения и интересы</h3>
+    <p id="interests"></p>
+
+    <h3>Сильные стороны</h3>
+    <p id="strengths"></p>
+
+    <h3>Слабости и страхи</h3>
+    <p id="weaknesses"></p>
+
+    <h3>Привычки и особенности поведения</h3>
+    <p id="habits"></p>
+   </div>
+
+   <h2>IV. Биографические сведения</h2>
+   <div class="panel bio" id="profileBio"></div>
+
+   <h2>V. Дополнительные сведения</h2>
+   <div class="panel">
+    <h3>Родственные и социальные связи</h3>
+    <p id="connections"></p>
+
+    <h3>Планы и интересы в городе</h3>
+    <p id="plans"></p>
+   </div>
+
+   <hr class="rule">
+
+   <div class="applicant">
+    <div class="eyebrow">VI. REGISTRATION INFORMATION</div>
+    <h2>Сведения о заявителе</h2>
+
+    <table class="details">
+     <tr>
+      <td>Игровой псевдоним</td>
+      <td id="applicantNickname"></td>
+     </tr>
+     <tr>
+      <td>Контакт для связи</td>
+      <td><a id="applicantTelegram" target="_blank" rel="noopener">Открыть Telegram-профиль</a></td>
+     </tr>
+    </table>
+
+    <p class="applicant-note">
+     Служебная информация регистрационной анкеты.
+    </p>
+   </div>
+  </div>
+ </div>
+</section>
+ <button class="button back" onclick="showPage('residents')">← К РЕЕСТРУ</button>
  <div class="eyebrow" id="profileNumber"></div>
  <div class="profile-photo" id="profilePhoto">✦</div>
  <h1 id="profileName"></h1>
