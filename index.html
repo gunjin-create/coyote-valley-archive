@@ -463,17 +463,6 @@ footer {
   }
 }
 </style>
-<script src="https://telegram.org/js/telegram-web-app.js">// TELEGRAM MINI APP INTEGRATION
-
-if (window.Telegram?.WebApp) {
-  const tg = window.Telegram.WebApp;
-
-  tg.ready();
-  tg.expand();
-
-  tg.setHeaderColor("#26352e");
-  tg.setBackgroundColor("#eee9dc");
-}</script>
 </head>
 
 <body>
@@ -985,6 +974,7 @@ function renderResidents(items) {
   const empty=document.createElement("div");
 
   empty.className="empty";
+
   empty.textContent="По вашему запросу ничего не найдено.";
 
   list.appendChild(empty);
